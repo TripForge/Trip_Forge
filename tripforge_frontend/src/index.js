@@ -4,10 +4,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Navbar from './Components/Navbar';
+import Starter from './Pages/Starter';
+import StarterFeatures from './Pages/StarterFeatures'
+import Reviews from './Pages/ReviewsPage';
+import Footer from './Pages/Footer/'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Navbar></Navbar>
+    <Starter></Starter>
+    <StarterFeatures/>
+    <Reviews/>
+    <Footer/>
     <App />
   </React.StrictMode>
 );

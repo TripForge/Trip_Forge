@@ -1,11 +1,10 @@
 import './App.css';
 import Hero from './Pages/Hero'
+import Starter from './Pages/Starter';
 function App() {
   return (
     <div className="App">
-      <h1 className="text-3xl font-bold underline">
-        <Hero />
-      </h1>
+        {/* <Starter></Starter> */}
     </div>
   );
 }
