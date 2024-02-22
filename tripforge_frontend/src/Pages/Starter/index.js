@@ -6,6 +6,9 @@
 // import { Dialog } from '@headlessui/react'
 // import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import './starter.css';
+import Footer from "../../Components/Footer";
+import Reviews from "../../Components/Reviews";
+import StarterFeatures from "../../Components/StarterFeatures";
 // const navigation = [
 //   { name: 'Product', href: '#' },
 //   { name: 'Features', href: '#' },
@@ -16,7 +19,7 @@ import './starter.css';
 export default function Starter() {
   // const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  return (
+  return (<div>
     <div className="bg-white">
       {/* <header className="absolute inset-x-0 top-0 z-50">
         <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
@@ -150,5 +153,11 @@ export default function Starter() {
         </div> */}
       </div>
     </div>
-  )
+
+
+    <StarterFeatures></StarterFeatures>
+    <Reviews></Reviews>
+    <Footer></Footer>
+  </div>
+  );
 }

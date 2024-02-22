@@ -1,3 +1,5 @@
+import Map from "../../Components/Map";
+
 export default function Hero() {
   return <div className="flex flex-row">
     <div className="flex flex-col md:flex-row w-full">
@@ -6,8 +8,8 @@ export default function Hero() {
 
       </div>
       <div className="column-3 w-full md:w-7/12 h-full border-2">
-        {/* map */}
-        <div style={{ height: "85vh" }}></div>
+        <Map></Map>
+        {/* <div style={{ height: "90vh", width: "100%" }}></div> */}
       </div>
     </div>
   </div>
