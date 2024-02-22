@@ -6,9 +6,7 @@ import UserProfile from './Components/user/UserProfile';
 function App() {
   return (
     <div className="App">
-      {/* <Starter></Starter>
-      <Hero></Hero> */}
-      <UserProfile></UserProfile>
+      <Hero></Hero>
     </div>
   );
 }
