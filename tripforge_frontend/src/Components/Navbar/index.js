@@ -1,11 +1,11 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Navigate } from "react-router-dom";
 
 const navigation = [
   { name: "Home", href: "#", current: false },
   { name: "Start Planning", href: "#", current: false },
-  { name: "Hotels", href: "#", current: false },
   { name: "Past Trips", href: "#", current: false },
 ];
 
