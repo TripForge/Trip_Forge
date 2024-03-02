@@ -13,13 +13,15 @@ export default function Map({
   setBounds,
   places,
   setChildClicked,
+  weatherData,
 }) {
   const defaultCoordinates = { lat: 20, lng: 78 };
-  const apiKey = "AIzaSyB71R_KQJRoRR4Ear6QPuKA5VbpTZgdfdE";
+
+  // const apiKey = "AIzaSyB71R_KQJRoRR4Ear6QPuKA5VbpTZgdfdE";
   return (
     <div style={{ height: "90vh", width: "100%" }}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: apiKey }}
+        bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY }}
         defaultCenter={defaultCoordinates}
         center={coordinates}
         defaultZoom={14}
@@ -41,23 +43,19 @@ export default function Map({
           >
             <Tooltip
               content={
-                place.name ? (
-                  <Card className="w-20 z-10">
-                    <CardHeader>
-                      <img
-                        src={
-                          place.photo
-                            ? place.photo.images.large.url
-                            : "https://media.istockphoto.com/id/1018141890/photo/two-empty-wine-glasses-sitting-in-a-restaurant-on-a-warm-sunny-afternoon.jpg?s=612x612&w=0&k=20&c=OccJv1oKWSTDqJ6Irw7iW1NEbL0muU2ylqP3EOhOyEg="
-                        }
-                        alt="ui/ux review check"
-                      />
-                    </CardHeader>
-                    <Typography variant="small">{place.name}</Typography>
-                  </Card>
-                ) : (
-                  <></>
-                )
+                <Card className="w-20 z-10">
+                  <CardHeader>
+                    <img
+                      src={
+                        place.photo
+                          ? place.photo.images.large.url
+                          : "https://media.istockphoto.com/id/1018141890/photo/two-empty-wine-glasses-sitting-in-a-restaurant-on-a-warm-sunny-afternoon.jpg?s=612x612&w=0&k=20&c=OccJv1oKWSTDqJ6Irw7iW1NEbL0muU2ylqP3EOhOyEg="
+                      }
+                      alt="ui/ux review check"
+                    />
+                  </CardHeader>
+                  <Typography variant="small">{place.name}</Typography>
+                </Card>
               }
             >
               <svg

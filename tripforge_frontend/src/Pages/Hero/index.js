@@ -1,67 +1,107 @@
 import Map from "../../Components/Map";
 import PlacesList from "../../Components/PlacesList";
-import { getPlaces } from '../../api';
-import { useEffect, useState } from 'react';
+import { getPlaces, getWeatherData } from "../../api";
+import { useEffect, useState } from "react";
 
+const defaultBounds = {
+  ne: {
+    lat: 30.529417066309108,
+    lng: 76.67113605198972,
+  },
+  sw: {
+    lat: 30.499765872677585,
+    lng: 76.63448634801023,
+  },
+};
 
-export default function Hero() {
-
+export default function Hero({ coordinates, setCoordinates }) {
   const [places, setPlaces] = useState([]);
-  const [coordinates, setCoordinates] = useState({});
+  // const [weatherData, setWeatherData] = useState({});
   const [childClicked, setChildClicked] = useState(null);
 
-  const defaultBounds = {
-    ne: {
-      lat: 30.529417066309108,
-      lng: 76.67113605198972
-    }, sw: {
-      lat: 30.499765872677585,
-      lng: 76.63448634801023
-    }
-  }
-  const [bounds, setBounds] = useState(defaultBounds);
+  const [isLoading, SetIsLoading] = useState(false);
 
+  const [type, setType] = useState("Restaurants");
+  const [rating, setRating] = useState("rating");
+
+  const [filteredPlaces, setFilteredPlaces] = useState([]);
+
+  const [bounds, setBounds] = useState({});
 
   // use effect to set initial coordinates to users location
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(({ coords }) => {
       setCoordinates({ lat: coords.latitude, lng: coords.longitude });
-    })
-  }, [])
+    });
+  }, []);
 
+  // use effect to filter places by rating
+  useEffect(() => {
+    const filterRating = {
+      "All": "0.0",
+      "Above 3.0": "3.0",
+      "Above 4.0": "4.0",
+      "Above 4.5": "4.5",
+    };
 
-  // useeffect to rerender map and fetch places data when map location changes  
+    if (rating !== "rating") {
+      console.log("filter rating : ", filterRating);
+      const filteredPlaces = places.filter(
+        (place) => place.rating > filterRating[rating]
+      );
+      setFilteredPlaces(filteredPlaces);
+      console.log("filtered places : ", filteredPlaces);
+    }
+  }, [rating]);
+
+  // useeffect to rerender map and fetch places data when map location changes
 
   useEffect(() => {
-    getPlaces(bounds).then((data) => {
-      setPlaces(data.data);
-    });
-    // console.log("places : ", places);
-  }, [coordinates, bounds]);
+    if (bounds.sw && bounds.ne) {
+      SetIsLoading(true);
 
-  return <div className="flex flex-row">
-    <div className="flex flex-col md:flex-row w-full">
-      <PlacesList 
-        places={places}
-        childClicked={childClicked}
-      ></PlacesList>
-      <div className="column-3 w-full md:w-7/12 h-full sticky top-0 z-10 overflow-auto">
-        <Map
-          setCoordinates={setCoordinates}
-          coordinates={coordinates}
-          setBounds={setBounds}
-          places={places}
-          setChildClicked={setChildClicked}
-        ></Map>
-        {/* <div style={{ height: "90vh", width: "100%" }}></div> */}
+      // getWeatherData(coordinates).then((data) => setWeatherData(data));
+
+      getPlaces(type.toLowerCase(), bounds).then((data) => {
+        setFilteredPlaces([]);
+        setPlaces(
+          data?.data?.filter((place) => place.name && place.num_reviews > 0)
+        );
+        SetIsLoading(false);
+      });
+
+      // console.log("places : ", places);
+    }
+  }, [type, bounds]);
+
+  return (
+    <div className="flex flex-row">
+      <div className="flex flex-col md:flex-row w-full">
+        <PlacesList
+          places={filteredPlaces.length ? filteredPlaces : places}
+          childClicked={childClicked}
+          isLoading={isLoading}
+          type={type}
+          setType={setType}
+          rating={rating}
+          setRating={setRating}
+        ></PlacesList>
+        <div className="column-3 w-full md:w-7/12 h-full sticky top-0 z-10 overflow-auto">
+          <Map
+            setCoordinates={setCoordinates}
+            coordinates={coordinates}
+            setBounds={setBounds}
+            places={filteredPlaces.length ? filteredPlaces : places}
+            setChildClicked={setChildClicked}
+            // weatherData={weatherData}
+          ></Map>
+          {/* <div style={{ height: "90vh", width: "100%" }}></div> */}
+        </div>
       </div>
     </div>
-  </div>
+  );
 }
-
-
-
 
 // export default function Hero() {
 //   return (
@@ -90,4 +130,3 @@ export default function Hero() {
 //     </div>
 //   );
 // }
-

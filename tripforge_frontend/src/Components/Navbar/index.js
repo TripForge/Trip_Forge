@@ -1,7 +1,8 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Navigate } from "react-router-dom";
+import { Autocomplete } from "@react-google-maps/api";
+// import { Navigate } from "react-router-dom";
 
 const navigation = [
   { name: "Home", href: "#", current: false },
@@ -13,7 +14,19 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar() {
+
+
+export default function Navbar({ setCoordinates }) {
+
+  const [autocomplete, setAutocomplete] = useState(null);
+  const onLoad = (autoC) => (setAutocomplete(autoC));
+
+  const onPlaceChange = () => {
+    const lat = autocomplete.getPlace().geometry.location.lat();
+    const lng = autocomplete.getPlace().geometry.location.lng();
+    setCoordinates({ lat: lat, lng: lng });
+  }
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -64,34 +77,37 @@ export default function Navbar() {
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* <!-- search box --> */}
-                <div className="">
-                  <div className="inline-flex flex-col justify-center relative text-gray-500">
-                    <div className="relative">
-                      <input
-                        type="text"
-                        className="p-2 pl-8 rounded border border-gray-200 bg-gray-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:border-transparent"
-                        placeholder="Search..."
-                      />
-                      <svg
-                        className="w-4 h-4 absolute left-2.5 top-3.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          // stroke-linecap
-                          strokeLinecap="round"
-                          // stroke-linejoin
-                          strokeLinejoin="round"
-                          // stroke-width
-                          strokeWidth="2"
-                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChange}>
+                  <div className="">
+                    <div className="inline-flex flex-col justify-center relative text-gray-500">
+                      <div className="relative">
+                        <input
+                          type="text"
+                          className="p-2 pl-8 rounded border border-gray-200 bg-gray-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:border-transparent"
+                          placeholder="Search..."
                         />
-                      </svg>
+                        <svg
+                          className="w-4 h-4 absolute left-2.5 top-3.5"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            // stroke-linecap
+                            strokeLinecap="round"
+                            // stroke-linejoin
+                            strokeLinejoin="round"
+                            // stroke-width
+                            strokeWidth="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                          />
+                        </svg>
+                      </div>
                     </div>
                   </div>
-                </div>
+
+                </Autocomplete>
 
                 {/* notification button */}
                 <button

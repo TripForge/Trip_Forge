@@ -12,9 +12,9 @@ import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 
 
-export function MenuCustomList({ menuItems, heading }) {
+export function MenuCustomList({ menuItems, heading, selectedItem, setSelectedItem }) {
     const [openMenu, setOpenMenu] = React.useState(false);
-    const [selectedItem, setSelectedItem] = useState(heading);
+    // const [selectedItem, setSelectedItem] = useState(heading);
 
     return (
         <Menu open={openMenu} handler={setOpenMenu}>
