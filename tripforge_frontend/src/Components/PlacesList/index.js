@@ -30,14 +30,6 @@ export default function PlacesList({ places,
 
 }) {
 
-    // const [elRef, setElRef] = useState([]);
-
-
-    // useEffect(() => {
-    //     const refs = Array(places.length).fill().map((_, i) => elRef[i] || createRef());
-    //     setElRef(refs);
-    // }, [places]);
-
     console.log("places : ", places);
     console.log("child clicked : ", childClicked);
     // console.log("element ref : ", elRef);
@@ -94,7 +86,7 @@ export default function PlacesList({ places,
 
                 {
                     isLoading ? (
-                        <Spinner className="h-16 w-16 text-gray-900/50"></Spinner>
+                        <Spinner className="h-16 w-16 text-gray-900/50 text-center"></Spinner>
                     ) :
                         (
                             <>

@@ -1,7 +1,9 @@
+import { useDispatch, useSelector } from "react-redux";
 import Map from "../../Components/Map";
 import PlacesList from "../../Components/PlacesList";
 import { getPlaces, getWeatherData } from "../../api";
 import { useEffect, useState } from "react";
+import { setTripCoordinates } from "../../redux/Slices/TripCoordinateSlice";
 
 const defaultBounds = {
   ne: {
@@ -28,13 +30,30 @@ export default function Hero({ coordinates, setCoordinates }) {
 
   const [bounds, setBounds] = useState({});
 
+  const dispatch = useDispatch();
+
+
+
+
+
+
+  // dispatch(setTripCoordinates(coordinates));
+
+  const sate = useSelector((state) => state.tripCoordinate);
+  console.log("state coordinates : ", sate);
+
   // use effect to set initial coordinates to users location
 
   useEffect(() => {
+    let cord = {};
     navigator.geolocation.getCurrentPosition(({ coords }) => {
       setCoordinates({ lat: coords.latitude, lng: coords.longitude });
+      cord = { lat: coords.latitude, lng: coords.longitude };
     });
+    dispatch(setTripCoordinates(cord));
   }, []);
+
+
 
   // use effect to filter places by rating
   useEffect(() => {
@@ -54,6 +73,9 @@ export default function Hero({ coordinates, setCoordinates }) {
       console.log("filtered places : ", filteredPlaces);
     }
   }, [rating]);
+
+
+
 
   // useeffect to rerender map and fetch places data when map location changes
 
@@ -94,7 +116,7 @@ export default function Hero({ coordinates, setCoordinates }) {
             setBounds={setBounds}
             places={filteredPlaces.length ? filteredPlaces : places}
             setChildClicked={setChildClicked}
-            // weatherData={weatherData}
+          // weatherData={weatherData}
           ></Map>
           {/* <div style={{ height: "90vh", width: "100%" }}></div> */}
         </div>
