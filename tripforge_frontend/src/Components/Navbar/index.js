@@ -2,6 +2,8 @@ import { Fragment, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Autocomplete } from "@react-google-maps/api";
+import { useDispatch } from "react-redux";
+import {setTripCoordinates} from "../../redux/Slices/TripCoordinateSlice"
 // import { Navigate } from "react-router-dom";
 
 const navigation = [
@@ -16,15 +18,18 @@ function classNames(...classes) {
 
 
 
-export default function Navbar({ setCoordinates }) {
+export default function Navbar() {
 
   const [autocomplete, setAutocomplete] = useState(null);
+  const dispatch = useDispatch();
   const onLoad = (autoC) => (setAutocomplete(autoC));
 
   const onPlaceChange = () => {
     const lat = autocomplete.getPlace().geometry.location.lat();
     const lng = autocomplete.getPlace().geometry.location.lng();
-    setCoordinates({ lat: lat, lng: lng });
+    // setCoordinates({ lat: lat, lng: lng });
+    dispatch(setTripCoordinates({ lat: lat, lng: lng }));
+
   }
 
   return (

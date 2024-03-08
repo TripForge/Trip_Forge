@@ -8,17 +8,15 @@ import {
     IconButton,
     Chip,
 } from "@material-tailwind/react";
-import { createRef } from "react";
+import { createRef, useState } from "react";
 
-const PlacesCard = ({ place, selected, ref }) => {
+const PlacesCard = ({ place, selected }) => {
+
+    const [isAdded, setIsAdded] = useState(false);
     const defaultResturant = "https://media.istockphoto.com/id/1018141890/photo/two-empty-wine-glasses-sitting-in-a-restaurant-on-a-warm-sunny-afternoon.jpg?s=612x612&w=0&k=20&c=OccJv1oKWSTDqJ6Irw7iW1NEbL0muU2ylqP3EOhOyEg=";
-    if (!(place.name) && !(place.location_id)) return (<></>);
 
-    // console.log(place.name + " clicked ", ref);
-    // ref.current = document.getElementById(place.location_id);
 
     if (selected) {
-        // this.ref = createRef();
         // console.log("card this: ", document.getElementById(place.location_id));
         // ref?.current?.scrollIntoView({ behaviour: "smooth", block: "start" });
         document.getElementById(place?.location_id)?.scrollIntoView({ block: "start", behaviour: "smooth" });
@@ -26,7 +24,7 @@ const PlacesCard = ({ place, selected, ref }) => {
 
 
     return (
-        <div ref={ref} id={place.location_id} >
+        <div id={place.location_id} >
             <Card className="w-full max-w-[26rem] shadow-lg">
                 <CardHeader floated={false} color="blue-gray">
                     <img
@@ -34,26 +32,24 @@ const PlacesCard = ({ place, selected, ref }) => {
                         alt="ui/ux review check"
                     />
                     <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-tr from-transparent via-transparent to-black/60 " />
-                    <IconButton
-                        size="sm"
-                        color="red"
-                        variant="text"
-                        className="!absolute top-4 right-4 rounded-full"
+                    <div
+                        className="!absolute top-4 right-4"
                     >
-                        <svg
+                        {/* <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                             fill="currentColor"
                             className="h-6 w-6"
                         >
                             <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
-                        </svg>
-                    </IconButton>
+                        </svg> */}
+                        <Button variant="outlined" className="rounded-full" color={isAdded ? "red" : "light-green"} onClick={() => setIsAdded(!isAdded)}>{isAdded ? "remove" : "add"}</Button>
+                    </div>
                 </CardHeader>
                 <CardBody className="pb-0">
                     <div className="mb-3 flex items-center justify-between">
                         <Typography variant="h5" color="blue-gray" className="font-medium">
-                            {place?.name ? place?.name : "Resturant"}
+                            {place?.name}
                         </Typography>
                         <Typography
                             color="blue-gray"
