@@ -2,6 +2,8 @@ import { Fragment, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Autocomplete } from "@react-google-maps/api";
+import { useDispatch } from "react-redux";
+import {setTripCoordinates} from "../../redux/Slices/TripCoordinateSlice"
 // import { Navigate } from "react-router-dom";
 
 const navigation = [
@@ -16,15 +18,18 @@ function classNames(...classes) {
 
 
 
-export default function Navbar({ setCoordinates }) {
+export default function Navbar() {
 
   const [autocomplete, setAutocomplete] = useState(null);
+  const dispatch = useDispatch();
   const onLoad = (autoC) => (setAutocomplete(autoC));
 
   const onPlaceChange = () => {
     const lat = autocomplete.getPlace().geometry.location.lat();
     const lng = autocomplete.getPlace().geometry.location.lng();
-    setCoordinates({ lat: lat, lng: lng });
+    // setCoordinates({ lat: lat, lng: lng });
+    dispatch(setTripCoordinates({ lat: lat, lng: lng }));
+
   }
 
   return (
@@ -141,7 +146,7 @@ export default function Navbar({ setCoordinates }) {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="absolute right-0 z-20 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
                           <a

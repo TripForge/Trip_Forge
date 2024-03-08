@@ -1,6 +1,9 @@
 import { useDispatch } from "react-redux";
 export default function Signup() {
   const dispatch = useDispatch();
+  const handleSubmit = ()=> {
+
+  }
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -19,14 +22,15 @@ export default function Signup() {
           <form
             className="space-y-6"
             onSubmit={handleSubmit((data) => {
-              dispatch(
-                createUserAsync({
-                  email: data.email,
-                  password: data.password,
-                  addresses: [],
-                  phone: data.phone,
-                })
-              );
+              // dispatch(
+              //   createUserAsync({
+              //     email: data.email,
+              //     password: data.password,
+              //     addresses: [],
+              //     phone: data.phone,
+              //   })
+              // );
+              console.log(data);
             })}
           >
             <div>

@@ -6,36 +6,43 @@ import {
   Tooltip,
   Typography,
 } from "@material-tailwind/react";
+import { setTripCoordinates } from "../../redux/Slices/TripCoordinateSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Map({
-  setCoordinates,
-  coordinates,
   setBounds,
   places,
   setChildClicked,
   weatherData,
 }) {
+  const dispatch = useDispatch();
   const defaultCoordinates = { lat: 20, lng: 78 };
+
 
   // const apiKey = "AIzaSyB71R_KQJRoRR4Ear6QPuKA5VbpTZgdfdE";
   return (
-    <div style={{ height: "90vh", width: "100%" }}>
+    <div style={{ height: "90vh", width: "100%" }} className="z-0">
       <GoogleMapReact
         bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY }}
         defaultCenter={defaultCoordinates}
-        center={coordinates}
+        center={useSelector(
+          (state) => state.TripCoordinateReducer.tripCoordinate
+        )}
         defaultZoom={14}
         margin={[50, 50, 50, 50]}
         options={""}
         onChange={(e) => {
-          setCoordinates({ lat: e.center.lat, lng: e.center.lng });
+          dispatch(
+            setTripCoordinates({ lat: e.center.lat, lng: e.center.lng })
+          );
+          // setCoordinates({ lat: e.center.lat, lng: e.center.lng });
           setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw });
         }}
         onChildClick={(child) => {
           setChildClicked(child);
         }}
       >
-        {places.map((place, index) => (
+        {places?.map((place, index) => (
           <div
             lat={Number(place.latitude)}
             lng={Number(place.longitude)}

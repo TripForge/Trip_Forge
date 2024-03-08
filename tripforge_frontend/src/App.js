@@ -1,22 +1,27 @@
 import './App.css';
-// import Starter from './Pages/Starter';
-import Starter from './Pages/Starter';
-import Navbar from './Components/Navbar';
 import { useState } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import { RouterProvider } from 'react-router-dom';
-import { Provider } from 'react-redux';
+
+import NewTrip from './Pages/NewTrip';
 import Hero from './Pages/Hero';
-import Signup from './Components/Signup/Signup';
+const router = createBrowserRouter([
+  {
+    path : '/',
+    element : <NewTrip/>
+  },
+  {
+    path : '/yourTrip',
+    element : <Hero></Hero>
+  }
+])
 
 function App() {
-  const [coordinates, setCoordinates] = useState({});
 
 
   return (
-    <div className="App">
-      <Hero/>
-    </div>
+
+      <RouterProvider router={router}/>
   );
 }
 
