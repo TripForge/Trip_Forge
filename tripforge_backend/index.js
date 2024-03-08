@@ -1,13 +1,26 @@
-const express = require('express');
-const server = express();
+const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const app = express();
+const userRouter = require('./routes/Auth');
+// const signRoute = require("./routes/Auth");
+dotenv.config();
 
-const mongoose = require('mongoose');
-server.use(express.json());
 
+app.use('/users', userRouter.router);
+mongoose.connect(process.env.MONGO_URI)
+.then(() => {
+    console.log('Connected to MongoDB successfully');
+})
+.catch(error => {
+    console.error('Error connecting to MongoDB:', error);
+});
 
-main().catch(error => console.log(error));
-async function main() {
-    await mongoose.connect("mongodb://127.0.0.1:27017/tripforge");
-    console.log('database connected');
-}
+const PORT = process.env.PORT;
 
+app.listen(PORT || 4000, () => {
+    console.log(`Server started at ${PORT}`);
+  });
+
+app.use(express.json());
+// app.use(cors());

@@ -5,7 +5,7 @@ import { Autocomplete } from "@react-google-maps/api";
 // import { Navigate } from "react-router-dom";
 
 const navigation = [
-  { name: "Home", href: "#", current: false },
+  { name: "Home", link : '/' },
   { name: "Start Planning", href: "#", current: false },
   { name: "Past Trips", href: "#", current: false },
 ];

@@ -57,18 +57,18 @@ import axios from 'axios';
 
 
 // de25d7de1bmshf6c3e70ebec1aa7p189e6ejsnc340b6fdb9a5
-export const getWeatherData = async (coordinates) => {
-    try {
-        const { data } = await axios.get('https://weatherapi-com.p.rapidapi.com/current.json', {
-            params: { q: `${coordinates.lat},${coordinates.lng}` },
-            headers: {
-                'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_WEATHER_API_KEY,
-                'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
-            }
-        });
-        console.log("weather data : ", data);
-        return data;
-    } catch (error) {
-        console.error(error);
-    }
-}
+// export const getWeatherData = async (coordinates) => {
+//     try {
+//         const { data } = await axios.get('https://weatherapi-com.p.rapidapi.com/current.json', {
+//             params: { q: `${coordinates.lat},${coordinates.lng}` },
+//             headers: {
+//                 'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_WEATHER_API_KEY,
+//                 'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
+//             }
+//         });
+//         console.log("weather data : ", data);
+//         return data;
+//     } catch (error) {
+//         console.error(error);
+//     }
+// }
