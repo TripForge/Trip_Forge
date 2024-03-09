@@ -47,7 +47,7 @@ import axios from 'axios';
             }
         });
 
-        console.log(type, " data : ", response.data);
+        // console.log(type, " data : ", response.data);
         return response.data
 
     } catch (error) {

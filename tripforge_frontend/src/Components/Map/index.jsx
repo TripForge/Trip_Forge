@@ -18,10 +18,11 @@ export default function Map({
   const dispatch = useDispatch();
   const defaultCoordinates = { lat: 20, lng: 78 };
 
+  console.log("places in map : ", places);
 
   // const apiKey = "AIzaSyB71R_KQJRoRR4Ear6QPuKA5VbpTZgdfdE";
   return (
-    <div style={{ height: "90vh", width: "100%" }} className="z-0">
+    <div style={{ height: "90vh", width: "100%" }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY }}
         defaultCenter={defaultCoordinates}
@@ -42,7 +43,7 @@ export default function Map({
           setChildClicked(child);
         }}
       >
-        {places?.map((place, index) => (
+        {places.map((place, index) => (
           <div
             lat={Number(place.latitude)}
             lng={Number(place.longitude)}

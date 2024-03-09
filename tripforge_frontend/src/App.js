@@ -1,27 +1,21 @@
 import './App.css';
-import { useState } from 'react';
-import { createBrowserRouter } from 'react-router-dom';
-import { RouterProvider } from 'react-router-dom';
-
-import NewTrip from './Pages/NewTrip';
+import { Provider } from 'react-redux';
+import { store } from "./redux/Store/store"
+import Navbar from "./Components/Navbar"
 import Hero from './Pages/Hero';
-const router = createBrowserRouter([
-  {
-    path : '/',
-    element : <NewTrip/>
-  },
-  {
-    path : '/yourTrip',
-    element : <Hero></Hero>
-  }
-])
+
 
 function App() {
 
 
   return (
-
-      <RouterProvider router={router}/>
+    <Provider store={store}>
+      <div className="App">
+        <Navbar ></Navbar>
+        {/* <PastTrips></PastTrips> */}
+        <Hero ></Hero>
+      </div>
+    </Provider>
   );
 }
 

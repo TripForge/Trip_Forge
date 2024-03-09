@@ -1,7 +1,6 @@
-import { Spinner, Typography } from "@material-tailwind/react";
+import { Spinner, Typography,} from "@material-tailwind/react";
 import PlacesCard from "../../Components/PlacesCard";
 import { MenuCustomList } from "../../Components/MenuCustomList";
-import { createRef, useEffect, useState } from "react";
 
 
 
@@ -20,7 +19,7 @@ const ratingItens = [
     "Above 4.5"
 ];
 
-export default function PlacesList({ 
+export default function PlacesList({
     places,
     childClicked,
     isLoading,
@@ -30,6 +29,7 @@ export default function PlacesList({
     setRating
 
 }) {
+
 
     // console.log("places : ", places);
     // console.log("child clicked : ", childClicked);
@@ -46,7 +46,7 @@ export default function PlacesList({
 
                 {
                     isLoading ? (
-                        <Spinner className="h-16 w-16 text-gray-900/50 text-center"></Spinner>
+                        <Spinner className="h-16 w-16 text-gray-900/50"></Spinner>
                     ) :
                         (
                             <>
@@ -66,6 +66,12 @@ export default function PlacesList({
                                 </div>
                                 <div className="overflow-y-auto" style={{ maxHeight: "calc(100% - 80px)" }}>
                                     <div className="flex flex-col">
+                                        
+
+
+
+
+
                                         {places?.map((place, i) => (
                                             place?.name ? (
                                                 <PlacesCard

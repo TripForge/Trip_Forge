@@ -5,14 +5,10 @@ import {
     CardFooter,
     Typography,
     Button,
-    IconButton,
     Chip,
 } from "@material-tailwind/react";
-import { createRef, useState } from "react";
 
 const PlacesCard = ({ place, selected }) => {
-
-    const [isAdded, setIsAdded] = useState(false);
     const defaultResturant = "https://media.istockphoto.com/id/1018141890/photo/two-empty-wine-glasses-sitting-in-a-restaurant-on-a-warm-sunny-afternoon.jpg?s=612x612&w=0&k=20&c=OccJv1oKWSTDqJ6Irw7iW1NEbL0muU2ylqP3EOhOyEg=";
 
 
@@ -42,8 +38,8 @@ const PlacesCard = ({ place, selected }) => {
                             className="h-6 w-6"
                         >
                             <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
-                        </svg> */}
-                        <Button variant="outlined" className="rounded-full" color={isAdded ? "red" : "light-green"} onClick={() => setIsAdded(!isAdded)}>{isAdded ? "remove" : "add"}</Button>
+                        </svg>
+                        <Button variant="outlined" className="rounded-full" color={isAdded ? "red" : "light-green"} onClick={() => setIsAdded(!isAdded)}>{isAdded ? "remove" : "add"}</Button> */}
                     </div>
                 </CardHeader>
                 <CardBody className="pb-0">

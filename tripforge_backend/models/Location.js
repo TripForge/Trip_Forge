@@ -9,7 +9,7 @@ const locationSchema = Schema({
     notes : {type : [Schema.Types.Mixed]}
 })
 
-const virtual = locationSchema.virtual('id');
+const virtual = tripSchema.virtual('id');
 virtual.get(function(){
     return this._id;
 })

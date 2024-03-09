@@ -1,13 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Map from "../../Components/Map";
 import PlacesList from "../../Components/PlacesList";
-import { getPlaces, getWeatherData } from "../../api";
+import { getPlaces, } from "../../api";
 import { useEffect, useState } from "react";
 import { setTripCoordinates } from "../../redux/Slices/TripCoordinateSlice";
-import { setMyPlaces } from "../../redux/Slices/PlacesSlice"
-import { setTrip, setTripAt } from "../../redux/Slices/tripSlice";
-import { createNewArray } from "../../helpers";
-import TripList from "../../Components/TripList";
+
 // const defaultBounds = {
 //   ne: {
 //     lat: 30.529417066309108,
@@ -22,8 +19,11 @@ import TripList from "../../Components/TripList";
 export default function Hero() {
   const dispatch = useDispatch();
 
-  // const [places, setPlaces] = useState([]);
+
+  const [places, setPlaces] = useState([]);
   // const [weatherData, setWeatherData] = useState({});
+  const [filteredPlaces, setFilteredPlaces] = useState([]);
+  
   const [childClicked, setChildClicked] = useState(null);
 
   const [isLoading, SetIsLoading] = useState(false);
@@ -31,39 +31,20 @@ export default function Hero() {
   const [type, setType] = useState("Restaurants");
   const [rating, setRating] = useState("rating");
 
-  const [filteredPlaces, setFilteredPlaces] = useState([]);
 
   const [bounds, setBounds] = useState({});
-
-  const places = useSelector((state) => state.PlacesReducer.places);
-
-
-  // const state = useSelector((state) => state);
-  // console.log("state : ", state.PlacesReducer.places);
-
-
-
-  // useEffect(() => {
-  //   dispatch(setTrip({ trips: createNewArray(10, false) }));
-  //   dispatch(setTripAt({ trip: { name: "my trip destination" }, index: 4 }));
-
-  // }, []);
-  // const sate = useSelector((state) => state.tripReducer.trip);
-  // console.log("state trip in hero: ", sate);
-
-
-
-
 
   // use effect to set initial coordinates to users location
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(({ coords }) => {
-      dispatch(setTripCoordinates({ lat: coords.latitude, lng: coords.longitude }));
+      // setCoordinates({ lat: coords.latitude, lng: coords.longitude });
+      dispatch(
+        setTripCoordinates({ lat: coords.latitude, lng: coords.longitude })
+      );
+      // cord = { lat: coords.latitude, lng: coords.longitude };
     });
   }, []);
-
-
 
   // use effect to filter places by rating
   useEffect(() => {
@@ -84,9 +65,6 @@ export default function Hero() {
     }
   }, [rating]);
 
-
-
-
   // useeffect to rerender map and fetch places data when map location changes
 
   useEffect(() => {
@@ -97,13 +75,13 @@ export default function Hero() {
 
       getPlaces(type.toLowerCase(), bounds).then((data) => {
         setFilteredPlaces([]);
-        // setPlaces(
-        //   data?.data?.filter((place) => place.name && place.num_reviews > 0)
-        //   );
+        setPlaces(
+          data?.data?.filter((place) => place.name && place.num_reviews > 0)
+        );
         // console.log("callig places in store");
         setRating("All");
 
-        dispatch(setMyPlaces({ myplaces: data?.data?.filter((place) => place.name && place.num_reviews > 0 && place.location_id) }));
+        // dispatch(setMyPlaces({ myplaces: data?.data?.filter((place) => place.name && place.num_reviews > 0 && place.location_id) }));
 
 
         SetIsLoading(false);
@@ -114,7 +92,7 @@ export default function Hero() {
   return (
     <div className="flex flex-row">
       <div className="flex flex-col md:flex-row w-full">
-        {/* <PlacesList
+        <PlacesList
           places={filteredPlaces.length ? filteredPlaces : places}
           childClicked={childClicked}
           isLoading={isLoading}
@@ -122,8 +100,8 @@ export default function Hero() {
           setType={setType}
           rating={rating}
           setRating={setRating}
-        ></PlacesList> */}
-        <TripList></TripList>
+        ></PlacesList>
+        {/* <TripList></TripList> */}
         <div className="column-3 w-full md:w-7/12 h-full sticky top-0 z-10 overflow-auto">
           <Map
             setBounds={setBounds}
