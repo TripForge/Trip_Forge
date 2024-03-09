@@ -1,8 +1,20 @@
 import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { createUserAsync } from "./authSlice";
+import { Link, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 export default function Signup() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const handleSubmit = ()=> {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
+  const handleClick = () => {
+    navigate('/userProfile');
   }
   return (
     <>
@@ -22,17 +34,39 @@ export default function Signup() {
           <form
             className="space-y-6"
             onSubmit={handleSubmit((data) => {
-              // dispatch(
-              //   createUserAsync({
-              //     email: data.email,
-              //     password: data.password,
-              //     addresses: [],
-              //     phone: data.phone,
-              //   })
-              // );
+              dispatch(
+                createUserAsync({
+                  name : data.name,
+                  email: data.email,
+                  password: data.password,
+                  address: data.address,
+                  phone: data.phone,
+                })
+              );
               console.log(data);
             })}
           >
+            <div>
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Name
+              </label>
+              <div className="mt-2">
+                <input
+                
+                  id="name"
+                  {
+                    ...register('name', {
+                      required : 'name is required'
+                    })
+                  }
+                  type="text"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
             <div>
               <label
                 htmlFor="email"
@@ -42,11 +76,14 @@ export default function Signup() {
               </label>
               <div className="mt-2">
                 <input
+                
                   id="email"
-                  name="email"
+                  {
+                    ...register('email', {
+                      required : 'email is required'
+                    })
+                  }
                   type="email"
-                  autoComplete="email"
-                  required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -60,10 +97,14 @@ export default function Signup() {
               </label>
               <div className="mt-2">
                 <input
+        
                   id="address"
-                  name="address"
+                  {
+                    ...register('address', {
+                      required : 'address is required'
+                    })
+                  }
                   type="address"
-                  required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -77,10 +118,15 @@ export default function Signup() {
               </label>
               <div className="mt-2">
                 <input
+             
                   id="phone"
-                  name="phone"
+                  {
+                    ...register('phone', {
+                      required : 'phone is required'
+                    })
+                  }
                   type="phone"
-                  required
+
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -105,10 +151,13 @@ export default function Signup() {
               <div className="mt-2">
                 <input
                   id="password"
-                  name="password"
+                  {
+                    ...register('password', {
+                      required : 'password is required'
+                    })
+                  }
                   type="password"
-                  autoComplete="current-password"
-                  required
+                  
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -117,6 +166,7 @@ export default function Signup() {
             <div>
               <button
                 type="submit"
+                onClick={handleClick}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign up

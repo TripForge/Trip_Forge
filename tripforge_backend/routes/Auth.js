@@ -1,8 +1,9 @@
 const express = require('express');
-const {createUser} = require('../controller/Auth');
+const {createUser, fetchUser} = require('../controller/Auth');
 
 const router = express.Router();
-router.post('/signup',createUser);
+router.post('/signup',createUser)
+      .get('/:id',fetchUser);
 
-
-exports.router = router;
+console.log("in routes");
+module.exports = router;

@@ -19,6 +19,7 @@ import Hero from "../Hero";
 
 
 
+
 const NewTrip = () => {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
@@ -26,6 +27,25 @@ const NewTrip = () => {
     const [coprdinate, setCoordinate] = useState({});
     const dispatch = useDispatch();
 
+    const isValidTrip = () => {
+        if (!startDate || !endDate) {
+            alert("Please select the duration for your trip");
+            return false;
+        }
+        if (days(startDate, endDate) <= 0) {
+            alert("Please pick a correct duration");
+            return false;
+        }
+        if (days(new Date(), startDate) <= 0) {
+            alert("Invalid trip or trip cannot start today!!");
+            return false;
+        }
+    
+        // Add additional validation logic if needed
+    
+        // If all conditions pass, the trip is valid
+        return true;
+    };
 
 
 
