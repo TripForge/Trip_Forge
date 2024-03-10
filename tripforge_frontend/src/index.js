@@ -5,15 +5,17 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { store } from "./redux/Store/store";
 import App from "./App";
+import Navbar from "./Components/Navbar";
+import UserProfile from "./Pages/UserProfile";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <>
-    <React.StrictMode>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </React.StrictMode>
+    <Provider store={store}>
+      <Navbar></Navbar>
+      {/* <App /> */}
+      <UserProfile></UserProfile>
+    </Provider>
   </>
 );
 
