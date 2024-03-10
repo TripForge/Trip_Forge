@@ -4,17 +4,22 @@ import { store } from "./redux/Store/store"
 import Starter from './Pages/Starter'
 import Navbar from "./Components/Navbar"
 import Hero from './Pages/Hero';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { BrowserRouter, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import LoginPage from './Pages/LoginPage/LoginPage';
 import SignupPage from './Pages/SignupPage/SignupPage';
 import Protected from './features/auth/components/Protected';
 import ForgotPasswordPage from './Pages/ForgotPasswordPage/ForgotPasswordPage';
+
 import Logout from './features/auth/components/Logout';
 const router = createBrowserRouter([
   {
     path : '/',
-    element :<LoginPage/>
+    element :<Starter/>
   }, 
+  {
+    path : '/starter',
+    element : <Starter/>
+  },
   {
     path : '/book-trip',
     element : <Protected><Hero></Hero></Protected>
@@ -41,12 +46,14 @@ function App() {
 
 
   return (
-      <div className="App">
-        <Navbar ></Navbar>
+        <div>
+        
+        {/* <Navbar ></Navbar> */}
         {/* <PastTrips></PastTrips> */}
         {/* <Hero ></Hero> */}
         <RouterProvider router={router}/>
-      </div>
+        </div>
+      
   );
 }
 

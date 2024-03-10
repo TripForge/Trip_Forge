@@ -4,11 +4,10 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Autocomplete } from "@react-google-maps/api";
 import { useDispatch } from "react-redux";
 import {setTripCoordinates} from "../../redux/Slices/TripCoordinateSlice"
-// import { Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 const navigation = [
-  { name: "Home", link : '/' },
-  { name: "Start Planning", href: "/book-trip", current: false },
+  { name: "Home", link : '/login' },
+  { name: "Start Planning", link: "/book-trip" },
 ];
 
 function classNames(...classes) {
@@ -62,9 +61,9 @@ export default function Navbar() {
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
-                        href={item.href}
+                        to={item.link}
                         className={classNames(
                           item.current
                             ? "bg-gray-900 text-white"
@@ -74,7 +73,7 @@ export default function Navbar() {
                         aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -175,7 +174,10 @@ export default function Navbar() {
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            to='/logout'
+                            // onClick={(e) => {
+                            //   window.location.reload()
+                            // }}
+                            to='/starter'
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"

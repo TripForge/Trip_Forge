@@ -92,6 +92,7 @@ export default function Hero() {
 
   return (
     <>
+    <Navbar ></Navbar>
     <div className="flex flex-row">
       <div className="flex flex-col md:flex-row w-full">
         <PlacesList
