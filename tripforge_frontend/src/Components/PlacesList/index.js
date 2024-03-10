@@ -73,17 +73,11 @@ export default function PlacesList({
 
 
                                         {places?.map((place, i) => (
-                                            place?.name ? (
                                                 <PlacesCard
                                                     key={i}
                                                     place={place}
                                                     selected={Number(childClicked) === i}
                                                 ></PlacesCard>
-                                            ) :
-                                                (
-                                                    <></>
-                                                )
-
                                         ))}
                                     </div>
                                 </div>

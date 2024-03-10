@@ -19,6 +19,7 @@ app.use((req, res, next) => {
 
 app.use("/users", userRouter);
 app.use("/fetchUser", userRouter);
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
