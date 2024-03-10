@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 function ForgotPassword() {
-  const {register, handleSubmit, watch, formState : {errors}} = useForm();
+  const {register, handleSubmit, watch, formState : {error}} = useForm();
   return (
     <>
       

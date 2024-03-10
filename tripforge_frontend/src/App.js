@@ -9,7 +9,7 @@ import LoginPage from './Pages/LoginPage/LoginPage';
 import SignupPage from './Pages/SignupPage/SignupPage';
 import Protected from './features/auth/components/Protected';
 import ForgotPasswordPage from './Pages/ForgotPasswordPage/ForgotPasswordPage';
-
+import Logout from './features/auth/components/Logout';
 const router = createBrowserRouter([
   {
     path : '/',

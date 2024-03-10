@@ -7,8 +7,9 @@ import { Navigate } from "react-router-dom";
 function Login() {
   const dispatch = useDispatch();
   const error = useSelector(selectError);
-  const user = useSelector(selectLoggedInUser)
-  const {register, handleSubmit, watch, formState : {errors}} = useForm();
+  const user = useSelector(selectLoggedInUser);
+  console.log('user is ', user);
+  const {register, handleSubmit,  formState : {errors}} = useForm();
   return (
     <>
       {user && <Navigate to='/book-trip' replace={true}></Navigate>}
@@ -52,7 +53,7 @@ function Login() {
                     ...register('email', {
                         required : "email is required",
                         pattern : {
-                            value : '/\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi',
+                            value : /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi,
                             message : 'email is not valid',
                         },
                     })
