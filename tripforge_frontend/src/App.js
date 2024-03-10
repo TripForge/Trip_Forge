@@ -41,14 +41,12 @@ function App() {
 
 
   return (
-    <Provider store={store}>
       <div className="App">
         <Navbar ></Navbar>
         {/* <PastTrips></PastTrips> */}
         {/* <Hero ></Hero> */}
         <RouterProvider router={router}/>
       </div>
-    </Provider>
   );
 }
 
