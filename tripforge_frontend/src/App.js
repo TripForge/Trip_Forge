@@ -43,7 +43,7 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        {/* <Navbar ></Navbar> */}
+        <Navbar ></Navbar>
         {/* <PastTrips></PastTrips> */}
         {/* <Hero ></Hero> */}
         <RouterProvider router={router}/>

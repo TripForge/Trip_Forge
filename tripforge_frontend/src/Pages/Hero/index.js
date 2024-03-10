@@ -4,6 +4,7 @@ import PlacesList from "../../Components/PlacesList";
 import { getPlaces, } from "../../api";
 import { useEffect, useState } from "react";
 import { setTripCoordinates } from "../../redux/Slices/TripCoordinateSlice";
+import Navbar from "../../Components/Navbar";
 
 // const defaultBounds = {
 //   ne: {
@@ -90,6 +91,7 @@ export default function Hero() {
   }, [type, bounds]);
 
   return (
+    <>
     <div className="flex flex-row">
       <div className="flex flex-col md:flex-row w-full">
         <PlacesList
@@ -113,5 +115,6 @@ export default function Hero() {
         </div>
       </div>
     </div>
+    </>
   );
 }

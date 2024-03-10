@@ -5,7 +5,7 @@ import { Autocomplete } from "@react-google-maps/api";
 import { useDispatch } from "react-redux";
 import {setTripCoordinates} from "../../redux/Slices/TripCoordinateSlice"
 // import { Navigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 const navigation = [
   { name: "Home", link : '/' },
   { name: "Start Planning", href: "/book-trip", current: false },
