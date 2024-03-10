@@ -7,7 +7,9 @@ import Hero from './Pages/Hero';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import LoginPage from './Pages/LoginPage/LoginPage';
 import SignupPage from './Pages/SignupPage/SignupPage';
-
+import Protected from './features/auth/components/Protected';
+import ForgotPasswordPage from './Pages/ForgotPasswordPage/ForgotPasswordPage';
+import Logout from './features/auth/components/Logout';
 const router = createBrowserRouter([
   {
     path : '/',
@@ -15,7 +17,7 @@ const router = createBrowserRouter([
   }, 
   {
     path : '/book-trip',
-    element : <Hero></Hero>
+    element : <Protected><Hero></Hero></Protected>
   },
   {
     path : '/login',
@@ -24,6 +26,14 @@ const router = createBrowserRouter([
   {
     path : '/signup',
     element : <SignupPage></SignupPage>
+  },
+  {
+    path : '/logout',
+    element : <Logout></Logout>
+  },
+  {
+    path : '/forgot-password',
+    element : <ForgotPasswordPage></ForgotPasswordPage>
   }
 ])
 
