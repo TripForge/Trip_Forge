@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import {setTripCoordinates} from "../../redux/Slices/TripCoordinateSlice"
 import { Link } from "react-router-dom";
 // import { Navigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 const navigation = [
   { name: "Home", link : '/' },
   { name: "Start Planning", href: "/book-trip", current: false },
