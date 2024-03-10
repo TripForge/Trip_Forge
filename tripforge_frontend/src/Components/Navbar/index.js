@@ -8,8 +8,7 @@ import {setTripCoordinates} from "../../redux/Slices/TripCoordinateSlice"
 
 const navigation = [
   { name: "Home", link : '/' },
-  { name: "Start Planning", href: "#", current: false },
-  { name: "Past Trips", href: "#", current: false },
+  { name: "Start Planning", href: "/book-trip", current: false },
 ];
 
 function classNames(...classes) {
