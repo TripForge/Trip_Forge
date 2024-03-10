@@ -4,7 +4,7 @@ module.exports.createUser = async(req, res,next) => {
     // const user = new User(req.body);
     try {
         console.log("body",req.body);
-        const user=await User.create(req.body);
+        const user = await User.create(req.body);
         if(!user){
             res.status(201).json(null);
         }
