@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TripCoordinateReducer } from "../Slices/TripCoordinateSlice";
-// import { PlacesReducer } from "../Slices/PlacesSlice";
-// import { tripReducer } from "../Slices/tripSlice";
+// import userReducer from '../../Components/user/UserProfile/userSlice'
+import authSlice  from "../../features/auth/authSlice";
 export const store = configureStore({
     reducer: {
         TripCoordinateReducer,
-        
+        auth : authSlice
     }
 });
