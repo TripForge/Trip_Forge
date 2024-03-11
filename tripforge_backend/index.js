@@ -15,19 +15,22 @@ const token = jwt.sign({foo : 'bar'}, SECRET_KEY);
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
-const {User} = require('./models/User')
+const {User} = require('./models/User');
+const { cookieExtractor } = require("./services/common");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 
 dotenv.config();
+
 // jwt options
 const opts = {}
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.jwtFromRequest = cookieExtractor;
 opts.secretOrKey = 'SECRET_KEY';
 
 
 app.use(express.static('build'));
+app.use(cookieParser());
 app.use(
   session({
     secret: "keyboard cat",
@@ -85,7 +88,7 @@ passport.use(
   'jwt',
   new JwtStrategy(opts,async function(jwt_payload, done) {
     try {
-      const user = await User.findOne({id: jwt_payload.sub}) 
+      const user = await User.findById(jwt_payload.sub) 
       if (user) {
         return done(null, user);
     } else {

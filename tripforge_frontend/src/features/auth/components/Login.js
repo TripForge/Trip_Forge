@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { checkUserAsync, selectError, selectLoggedInUser} from "../authSlice";
+import { checkAuthAsync, loginUserAsync, selectError, selectLoggedInUser} from "../authSlice";
 import { Navigate } from "react-router-dom";
 function Login() {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(checkAuthAsync);
+  },[dispatch])
   const error = useSelector(selectError);
   const user = useSelector(selectLoggedInUser);
   console.log('user is ', user);
@@ -32,7 +35,7 @@ function Login() {
             {
                 console.log("data is ", data);
                 dispatch(
-                  checkUserAsync({
+                  loginUserAsync({
                     email : data.email,
                     password : data.password
                   })

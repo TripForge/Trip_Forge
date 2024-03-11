@@ -1,59 +1,75 @@
-import './App.css';
-import { Provider } from 'react-redux';
-import { store } from "./redux/Store/store"
-import Starter from './Pages/Starter'
-import Navbar from "./Components/Navbar"
-import Hero from './Pages/Hero';
-import { BrowserRouter, RouterProvider, createBrowserRouter } from 'react-router-dom';
-import LoginPage from './Pages/LoginPage/LoginPage';
-import SignupPage from './Pages/SignupPage/SignupPage';
-import Protected from './features/auth/components/Protected';
-import ForgotPasswordPage from './Pages/ForgotPasswordPage/ForgotPasswordPage';
+import "./App.css";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import { store } from "./redux/Store/store";
+import Starter from "./Pages/Starter";
+import Navbar from "./Components/Navbar";
+import Hero from "./Pages/Hero";
+import {
+  BrowserRouter,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
+import LoginPage from "./Pages/LoginPage/LoginPage";
+import SignupPage from "./Pages/SignupPage/SignupPage";
+import Protected from "./features/auth/components/Protected";
+import ForgotPasswordPage from "./Pages/ForgotPasswordPage/ForgotPasswordPage";
 
-import Logout from './features/auth/components/Logout';
+import Logout from "./features/auth/components/Logout";
+import {
+  checkAuthAsync,
+  selectLoggedInUser,
+  selectUserChecked,
+} from "./features/auth/authSlice";
+import { useEffect } from "react";
 const router = createBrowserRouter([
   {
-    path : '/',
-    element :<Starter/>
-  }, 
-  {
-    path : '/starter',
-    element : <Starter/>
+    path: "/",
+    element: <Starter />,
   },
   {
-    path : '/book-trip',
-    element : <Protected><Hero></Hero></Protected>
+    path: "/starter",
+    element: <Starter />,
   },
   {
-    path : '/login',
-    element : <LoginPage></LoginPage>
+    path: "/book-trip",
+    element: (
+      <Protected>
+        <Hero></Hero>
+      </Protected>
+    ),
   },
   {
-    path : '/signup',
-    element : <SignupPage></SignupPage>
+    path: "/login",
+    element: <LoginPage></LoginPage>,
   },
   {
-    path : '/logout',
-    element : <Logout></Logout>
+    path: "/signup",
+    element: <SignupPage></SignupPage>,
   },
   {
-    path : '/forgot-password',
-    element : <ForgotPasswordPage></ForgotPasswordPage>
-  }
-])
+    path: "/logout",
+    element: <Logout></Logout>,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPasswordPage></ForgotPasswordPage>,
+  },
+]);
 
 function App() {
-
-
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(checkAuthAsync());
+  }, dispatch)
+  const user = useSelector(selectLoggedInUser);
+  const checkedUser = useSelector(selectUserChecked);
+  console.log('checked user is ', checkedUser);
   return (
-        <div>
-        
-        {/* <Navbar ></Navbar> */}
-        {/* <PastTrips></PastTrips> */}
-        {/* <Hero ></Hero> */}
-        <RouterProvider router={router}/>
-        </div>
-      
+    <div>
+      {checkedUser &&  
+      <RouterProvider router={router} />
+}
+    </div>
   );
 }
 

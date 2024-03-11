@@ -26,7 +26,7 @@ module.exports.createUser = async (req, res, next) => {
                 httpOnly: true,
               })
               .status(201)
-              .json(token);
+              .json({id : doc.id});
           }
         });
       }
@@ -57,6 +57,10 @@ module.exports.loginUser = async (req, res, next) => {
     .json(req.user.token);
 };
 
-module.exports.checkUser = async (req, res, next) => {
-  res.json({ status: "success", user: req.user });
+module.exports.checkAuth = async (req, res, next) => {
+  if (req.user) {
+    res.json(req.user);
+  } else {
+    res.sendStatus(401);
+  }
 };

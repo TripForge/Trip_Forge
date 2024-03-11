@@ -11,7 +11,7 @@ export function createUser(userData) {
   });
 }
 
-export function checkUser(loginInfo) {
+export function loginUser(loginInfo) {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await fetch("http://localhost:5000/users/login", {
@@ -33,7 +33,24 @@ export function checkUser(loginInfo) {
     }
   });
 }
+export function checkAuth() {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch("http://localhost:5000/users/check");
+      if(response.ok) {
 
+          const data = await response.json();
+          resolve({ data });
+      } else {
+        const err = await response.json();
+        reject({err});
+      }
+
+    } catch (err) {
+      reject({ err });
+    }
+  });
+}
 export function signOut(userId) {
   return new Promise(async (resolve) => {
     resolve({ data: "success" });

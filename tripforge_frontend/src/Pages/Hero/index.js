@@ -5,6 +5,7 @@ import { getPlaces, } from "../../api";
 import { useEffect, useState } from "react";
 import { setTripCoordinates } from "../../redux/Slices/TripCoordinateSlice";
 import Navbar from "../../Components/Navbar";
+import { selectLoggedInUser, selectUserChecked } from "../../features/auth/authSlice";
 
 // const defaultBounds = {
 //   ne: {
@@ -19,8 +20,8 @@ import Navbar from "../../Components/Navbar";
 
 export default function Hero() {
   const dispatch = useDispatch();
-
-
+  const userChecked = useDispatch(selectUserChecked);
+  const user = useSelector(selectLoggedInUser);
   const [places, setPlaces] = useState([]);
   // const [weatherData, setWeatherData] = useState({});
   const [filteredPlaces, setFilteredPlaces] = useState([]);
@@ -92,6 +93,7 @@ export default function Hero() {
 
   return (
     <>
+    {!user && userChecked && <Navigate to='/' replaced={true}></Navigate>}
     <Navbar ></Navbar>
     <div className="flex flex-row">
       <div className="flex flex-col md:flex-row w-full">
