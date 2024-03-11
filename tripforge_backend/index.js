@@ -10,13 +10,13 @@ const session = require("express-session");
 const LocalStrategy = require('passport-local')
 const bodyParser = require("body-parser");
 const JwtStrategy = require('passport-jwt').Strategy;
-const  ExtractJwt = require('passport-jwt').ExtractJwt;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
 const SECRET_KEY = 'SECRET_KEY';
-const token = jwt.sign({foo : 'bar'}, SECRET_KEY);
+const token = jwt.sign({ foo: 'bar' }, SECRET_KEY);
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
-const {User} = require('./models/User');
+const { User } = require('./models/User');
 const { cookieExtractor } = require("./services/common");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
@@ -49,62 +49,62 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/users",userRouter);
-app.use("/userInfo",userInfoRouter);
+app.use("/users", userRouter);
+app.use("/userInfo", userInfoRouter);
 // Passport strategy
 passport.use(
   'local',
   new LocalStrategy(
-    {usernameField : 'email'},
+    { usernameField: 'email' },
     async function (email, password, done) {
-    // by default passport uses username
-    try {
-      const user = await User.findOne({ email: email });
-      console.log(email, password, user);
-      if (!user) {
-        return done(null, false, { message: 'invalid credentials' }); // for safety
-      }
-      crypto.pbkdf2(
-        password,
-        user.salt,
-        310000,
-        32,
-        'sha256',
-        async function (err, hashedPassword) {
-          if (!crypto.timingSafeEqual(user.password, hashedPassword)) {
-            return done(null, false, { message: 'invalid credentials' });
-          }
-          const token = jwt.sign({id : user.id}, SECRET_KEY);
-
-          done(null,{token});
+      // by default passport uses username
+      try {
+        const user = await User.findOne({ email: email });
+        console.log(email, password, user);
+        if (!user) {
+          return done(null, false, { message: 'invalid credentials' }); // for safety
         }
-      );
-    } catch (err) {
-      done(err);
-    }
-  })
+        crypto.pbkdf2(
+          password,
+          user.salt,
+          310000,
+          32,
+          'sha256',
+          async function (err, hashedPassword) {
+            if (!crypto.timingSafeEqual(user.password, hashedPassword)) {
+              return done(null, false, { message: 'invalid credentials' });
+            }
+            const token = jwt.sign({ id: user.id }, SECRET_KEY);
+
+            done(null, { token });
+          }
+        );
+      } catch (err) {
+        done(err);
+      }
+    })
 );
 
 passport.use(
   'jwt',
-  new JwtStrategy(opts,async function(jwt_payload, done) {
+  new JwtStrategy(opts, async function (jwt_payload, done) {
     try {
-      const user = await User.findById(jwt_payload.sub) 
+      const user = await User.findById(jwt_payload.sub)
       if (user) {
         return done(null, user);
-    } else {
+      } else {
         return done(null, false);
         // or you could create a new account
-    }
-    } catch(err) {
-   
-      if (err) {
-          return done(err, false);
       }
-     
-    
-  };
-}));
+    } catch (err) {
+
+      if (err) {
+        return done(err, false);
+      }
+
+
+    };
+  }));
 // this creates session variable req.user on being  called
 passport.serializeUser(function (user, cb) {
   process.nextTick(function () {

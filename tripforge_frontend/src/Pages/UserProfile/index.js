@@ -1,10 +1,12 @@
 import React from "react";
 
 import Footer from "../../Components/ProfileFooter";
+import Navbar from "../../Components/Navbar";
 
 export default function UserProfile() {
     return (
         <>
+            <Navbar></Navbar>
 
 
             <div className="bg-gray-100">

@@ -22,6 +22,7 @@ import {
 } from "./features/auth/authSlice";
 import UserDetails from "./features/User/components/UserDetails";
 import { useEffect } from "react";
+import UserProfile from "./Pages/UserProfile"
 const router = createBrowserRouter([
   {
     path: "/",
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
         <Hero></Hero>
       </Protected>
     ),
+  },
+  {
+    path: "/user-profile",
+    element: <UserProfile></UserProfile>
   },
   {
     path: "/login",
@@ -72,7 +77,7 @@ function App() {
       {/* <Navbar ></Navbar> */}
       {/* <PastTrips></PastTrips> */}
       {/* <Hero ></Hero> */}
-      <UserDetails></UserDetails>
+      {/* <UserDetails></UserDetails> */}
       <RouterProvider router={router} />
     </div>
   );

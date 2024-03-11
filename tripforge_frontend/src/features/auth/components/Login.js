@@ -40,12 +40,14 @@ function Login() {
             className="space-y-6"
             onSubmit={handleSubmit((data) => {
               console.log("data is ", data);
-              dispatch(
-                loginUserAsync({
-                  email: data.email,
-                  password: data.password,
-                })
-              );
+
+                dispatch(
+                  loginUserAsync({
+                    email: data.email,
+                    password: data.password,
+                  })
+                );
+
             })}
           >
             <div>
