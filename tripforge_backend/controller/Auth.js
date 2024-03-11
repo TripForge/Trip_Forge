@@ -14,6 +14,7 @@ module.exports.createUser = async (req, res, next) => {
       "sha256",
       async function (err, hashedPassword) {
         const user = new User({ ...req.body, password: hashedPassword, salt });
+        console.log(user);
         const doc = await user.save();
         req.login({id : doc.id}, (err)=> {
           if(err) res.status(400).json(err);

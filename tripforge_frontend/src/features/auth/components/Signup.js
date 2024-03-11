@@ -1,13 +1,15 @@
 import React from 'react'
 import { Link  } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { createUserAsync, selectLoggedInUser } from '../authSlice';
+import { createUserAsync, selectLoggedInUser} from '../authSlice';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 function Signup() {
     const dispatch = useDispatch();
     const {register, handleSubmit, watch, formState : {errors}} = useForm();
     const user = useSelector(selectLoggedInUser);
+    console.log('user is ', user);
   return (
     <>
     {user && <Navigate to='/book-trip' replace={true}></Navigate>}

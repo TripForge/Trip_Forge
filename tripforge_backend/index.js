@@ -45,16 +45,18 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/users", isAuth(),userRouter);
+app.use("/users",userRouter);
 
 // Passport strategy
 passport.use(
   'local',
-  new LocalStrategy(async function (username, password, done) {
+  new LocalStrategy(
+    {usernameField : 'email'},
+    async function (email, password, done) {
     // by default passport uses username
     try {
-      const user = await User.findOne({ email: username });
-      console.log(username, password, user);
+      const user = await User.findOne({ email: email });
+      console.log(email, password, user);
       if (!user) {
         return done(null, false, { message: 'invalid credentials' }); // for safety
       }
