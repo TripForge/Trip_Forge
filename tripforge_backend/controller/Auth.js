@@ -1,7 +1,7 @@
 const { User } = require("../models/User");
 const crypto = require("crypto");
-const jwt = require('jsonwebtoken');
-const SECRET_KEY = 'SECRET_KEY';
+const jwt = require("jsonwebtoken");
+const SECRET_KEY = "SECRET_KEY";
 module.exports.createUser = async (req, res, next) => {
   // const user = new User(req.body);
   try {
@@ -16,13 +16,19 @@ module.exports.createUser = async (req, res, next) => {
         const user = new User({ ...req.body, password: hashedPassword, salt });
         console.log(user);
         const doc = await user.save();
-        req.login({id : doc.id}, (err)=> {
-          if(err) res.status(400).json(err);
-        else {
-          const token = jwt.sign({id : doc.id}, SECRET_KEY);
-          res.status(201).json(token);
-        } 
-        })
+        req.login({ id: doc.id }, (err) => {
+          if (err) res.status(400).json(err);
+          else {
+            const token = jwt.sign({ id: doc.id }, SECRET_KEY);
+            res
+              .cookie("jwt", token, {
+                expires: new Date(Date.now() + 3600000),
+                httpOnly: true,
+              })
+              .status(201)
+              .json(token);
+          }
+        });
       }
     );
   } catch (err) {
@@ -42,9 +48,15 @@ module.exports.createUser = async (req, res, next) => {
 
 module.exports.loginUser = async (req, res, next) => {
   // const user = new User(req.body);
-  res.json(req.user);
+  res
+    .cookie("jwt", req.user.token, {
+      expires: new Date(Date.now() + 3600000),
+      httpOnly: true,
+    })
+    .status(201)
+    .json(req.user.token);
 };
 
 module.exports.checkUser = async (req, res, next) => {
-  res.json({status : 'success', user : req.user});
+  res.json({ status: "success", user: req.user });
 };
