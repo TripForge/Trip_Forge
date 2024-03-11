@@ -4,7 +4,8 @@ const { Schema } = mongoose;
 const userSchema = Schema({
 
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  password: { type: Buffer, required: true },
+  salt : Buffer
 });
 
 const virtual = userSchema.virtual("id");
