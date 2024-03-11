@@ -20,8 +20,7 @@ import { selectLoggedInUser, selectUserChecked } from "../../features/auth/authS
 
 export default function Hero() {
   const dispatch = useDispatch();
-  const userChecked = useDispatch(selectUserChecked);
-  const user = useSelector(selectLoggedInUser);
+
   const [places, setPlaces] = useState([]);
   // const [weatherData, setWeatherData] = useState({});
   const [filteredPlaces, setFilteredPlaces] = useState([]);
@@ -93,7 +92,7 @@ export default function Hero() {
 
   return (
     <>
-    {!user && userChecked && <Navigate to='/' replaced={true}></Navigate>}
+
     <Navbar ></Navbar>
     <div className="flex flex-row">
       <div className="flex flex-col md:flex-row w-full">

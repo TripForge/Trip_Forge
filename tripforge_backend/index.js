@@ -5,6 +5,7 @@ const app = express();
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const userRouter = require("./routes/Auth");
+const userInfoRouter = require('./routes/User');
 const session = require("express-session");
 const LocalStrategy = require('passport-local')
 const bodyParser = require("body-parser");
@@ -49,7 +50,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/users",userRouter);
-
+app.use("/userInfo",userInfoRouter);
 // Passport strategy
 passport.use(
   'local',

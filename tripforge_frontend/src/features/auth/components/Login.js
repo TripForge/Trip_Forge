@@ -2,24 +2,26 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-<<<<<<< HEAD
-import { checkAuthAsync, loginUserAsync, selectError, selectLoggedInUser} from "../authSlice";
-=======
-import { checkUserAsync, selectError, selectLoggedInUser } from "../authSlice";
->>>>>>> 835a04f01149c34f80410a18c1e34fda26453e1b
+import { loginUserAsync } from "../authSlice";
+import { checkAuthAsync, selectError, selectLoggedInUser } from "../authSlice";
+
 import { Navigate } from "react-router-dom";
 function Login() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(checkAuthAsync);
-  },[dispatch])
+  }, [dispatch]);
   const error = useSelector(selectError);
   const user = useSelector(selectLoggedInUser);
-  console.log('user is ', user);
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  console.log("user is ", user);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   return (
     <>
-      {user && <Navigate to='/book-trip' replace={true}></Navigate>}
+      {user && <Navigate to="/book-trip" replace={true}></Navigate>}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -33,23 +35,19 @@ function Login() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form noValidate className="space-y-6"
-            onSubmit={
-              handleSubmit((data) => {
-                console.log("data is ", data);
-                dispatch(
-<<<<<<< HEAD
-                  loginUserAsync({
-                    email : data.email,
-                    password : data.password
-=======
-                  checkUserAsync({
-                    email: data.email,
-                    password: data.password
->>>>>>> 835a04f01149c34f80410a18c1e34fda26453e1b
-                  })
-                )
-              })}>
+          <form
+            noValidate
+            className="space-y-6"
+            onSubmit={handleSubmit((data) => {
+              console.log("data is ", data);
+              dispatch(
+                loginUserAsync({
+                  email: data.email,
+                  password: data.password,
+                })
+              );
+            })}
+          >
             <div>
               <label
                 htmlFor="email"
@@ -59,22 +57,18 @@ function Login() {
               </label>
               <div className="mt-2">
                 <input
-
                   id="email"
-                  {
-                  ...register('email', {
+                  {...register("email", {
                     required: "email is required",
                     pattern: {
                       value: /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi,
-                      message: 'email is not valid',
+                      message: "email is not valid",
                     },
-                  })
-                  }
+                  })}
                   type="email"
-
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
-                {error && <p className='text-red-500'>{error.message}</p>}
+                {error && <p className="text-red-500">{error.message}</p>}
               </div>
             </div>
 
@@ -98,16 +92,13 @@ function Login() {
               <div className="mt-2">
                 <input
                   id="password"
-                  {
-                  ...register('password', {
-                    required: "password not entered"
-                  })
-                  }
+                  {...register("password", {
+                    required: "password not entered",
+                  })}
                   type="password"
-
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
-                {error && <p className='text-red-500'>{error.message}</p>}
+                {error && <p className="text-red-500">{error.message}</p>}
               </div>
             </div>
 
