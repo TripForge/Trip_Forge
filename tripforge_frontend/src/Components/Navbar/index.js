@@ -5,6 +5,7 @@ import { Autocomplete } from "@react-google-maps/api";
 import { useDispatch } from "react-redux";
 import {setTripCoordinates} from "../../redux/Slices/TripCoordinateSlice"
 import { Link } from "react-router-dom";
+// import { Navigate } from "react-router-dom";
 const navigation = [
   { name: "Home", link : '/login' },
   { name: "Start Planning", link: "/book-trip" },
@@ -31,6 +32,7 @@ export default function Navbar() {
   }
 
   return (
+
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
         <>
