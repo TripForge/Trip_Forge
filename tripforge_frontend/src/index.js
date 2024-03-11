@@ -11,17 +11,9 @@ import UserProfile from "./Pages/UserProfile";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <>
-<<<<<<< HEAD
       <Provider store={store}>
         <App />
       </Provider>
-=======
-    <Provider store={store}>
-      <Navbar></Navbar>
-      {/* <App /> */}
-      <UserProfile></UserProfile>
-    </Provider>
->>>>>>> e4592116b3b0531dc7c929c0ad11f260067329cd
   </>
 );
 

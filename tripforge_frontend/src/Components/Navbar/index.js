@@ -3,12 +3,11 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Autocomplete } from "@react-google-maps/api";
 import { useDispatch } from "react-redux";
-import {setTripCoordinates} from "../../redux/Slices/TripCoordinateSlice"
+import { setTripCoordinates } from "../../redux/Slices/TripCoordinateSlice"
 import { Link } from "react-router-dom";
 // import { Navigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 const navigation = [
-  { name: "Home", link : '/' },
+  { name: "Home", link: '/' },
   { name: "Start Planning", href: "/book-trip", current: false },
 ];
 
@@ -33,7 +32,7 @@ export default function Navbar() {
   }
 
   return (
-    
+
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
         <>
