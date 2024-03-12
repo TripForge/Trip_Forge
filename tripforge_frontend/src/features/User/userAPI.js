@@ -10,3 +10,11 @@ export function createUserInfo(userData) {
       resolve({ data });
     });
   }
+
+  export function getUserInfo(id) {
+    return new Promise(async (resolve) => {
+      const response = await fetch(`http://localhost:5000/userInfo/${id}`);
+      const data = await response.json();
+      resolve({ data });
+    });
+  }

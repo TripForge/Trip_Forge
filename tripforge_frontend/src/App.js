@@ -21,11 +21,12 @@ import {
   selectUserChecked,
 } from "./features/auth/authSlice";
 import UserDetails from "./features/User/components/UserDetails";
+import UserProfile from "./features/User/components/UserProfile";
 import { useEffect } from "react";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Starter />,
+    element: <UserProfile/>,
   },
   {
     path: "/starter",
@@ -72,7 +73,7 @@ function App() {
       {/* <Navbar ></Navbar> */}
       {/* <PastTrips></PastTrips> */}
       {/* <Hero ></Hero> */}
-      <UserDetails></UserDetails>
+      {/* <UserDetails></UserDetails> */}
       <RouterProvider router={router} />
     </div>
   );
